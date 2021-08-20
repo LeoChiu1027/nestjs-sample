@@ -1,5 +1,6 @@
-import { Body, Controller, Get, Param, Post } from "@nestjs/common";
+import { Body, Controller, Get, HttpException, HttpStatus, Param, ParseIntPipe, Post } from "@nestjs/common";
 import { Observable, of } from "rxjs";
+import { ForbiddenException } from "src/forbidden.exception";
 import { CatsService } from "./cats.service";
 import { CreateCatDto } from "./dto/create-cat.dto";
 import { Cat } from "./interfaces/cat.interface";
@@ -20,9 +21,14 @@ export class CatsController {
         return of(this.catsService.findAll()); 
     }
 
+    @Get('/vip')
+    findVip() : Observable<string>  {
+      throw new ForbiddenException();
+    }
+
     @Get(':id')
-    findOne(@Param('id') id: string) : Observable<string>  {
-      return of(`This action returns a #${id} cat`);
+    findOne(@Param('id', ParseIntPipe) id: number): Observable<Cat>{
+        return of(this.catsService.findOne(id));
     }
   
 
