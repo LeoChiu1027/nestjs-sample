@@ -1,9 +1,10 @@
 import { MiddlewareConsumer, Module, NestModule, RequestMethod } from '@nestjs/common';
-import { APP_FILTER, APP_PIPE } from '@nestjs/core';
+import { APP_FILTER, APP_GUARD, APP_PIPE } from '@nestjs/core';
 import { HttpExceptionFilter } from 'src/http-exception.filter';
 import { CatsController }  from './cat.controller'; 
 import { CatsService } from "./cats.service";
 import { LoggerMiddleware } from './common/middleware/logger.middleware';
+import { RolesGuard } from './role.guards';
 import { ValidationPipe } from './validation.pipe';
 
 @Module({
@@ -17,7 +18,10 @@ import { ValidationPipe } from './validation.pipe';
             provide: APP_PIPE,
             useClass: ValidationPipe,
         }
-        
+        ,{
+            provide: APP_GUARD,
+            useClass: RolesGuard,
+        }
     ]
 })
 export class CatsModule implements NestModule {

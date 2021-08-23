@@ -1,9 +1,10 @@
-import { Body, Controller, Get, HttpException, HttpStatus, Param, ParseIntPipe, Post } from "@nestjs/common";
+import { Body, Controller, Get, HttpException, HttpStatus, Param, ParseIntPipe, Post, UseGuards } from "@nestjs/common";
 import { Observable, of } from "rxjs";
 import { ForbiddenException } from "src/forbidden.exception";
 import { CatsService } from "./cats.service";
 import { CreateCatDto } from "./dto/create-cat.dto";
 import { Cat } from "./interfaces/cat.interface";
+import { RolesGuard } from "./role.guards";
 
 
 @Controller('cats')
