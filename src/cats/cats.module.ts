@@ -14,10 +14,7 @@ import { ValidationPipe } from './validation.pipe';
             provide: APP_FILTER,
             useClass: HttpExceptionFilter
         }
-        ,{
-            provide: APP_PIPE,
-            useClass: ValidationPipe,
-        }
+
         ,{
             provide: APP_GUARD,
             useClass: RolesGuard,

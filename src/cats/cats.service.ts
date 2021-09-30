@@ -12,10 +12,20 @@ export class CatsService {
     }
 
     findAll(): Cat[] {
-        return this. cats;
+        return this.cats;
     }
 
     findOne(id: number): Cat {
         return this.cats[id];
+    }
+
+    hello({
+        name,
+        message = 'Hi'
+    }:{
+        name: string,
+        message?: string
+    }){
+        return message + ' ' + name
     }
 }
